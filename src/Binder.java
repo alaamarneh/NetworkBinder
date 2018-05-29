@@ -46,8 +46,14 @@ class RequestHandler implements Callable<Void> {
     }
 
     private void handleClientRequest(JSONObject jsonObjectRequest) throws Exception {
+         /*
+          jsonRequest template:
+          {
+           'fun':'add'
+           }
+         */
         System.out.println("handleClientRequest");
-        String funName = jsonObjectRequest.getString("fun");
+        String funName = jsonObjectRequest.getString("fun"); // add
         ServerModel serverModel =  new DBController().getServer(funName);
         if(serverModel != null){ // server exists
             JSONObject jsonObjectResponse = new JSONObject();
@@ -69,11 +75,11 @@ class RequestHandler implements Callable<Void> {
           {
            'op':'register',
            'functions':['Add','Mul'],
-           'serverIp':3000,
+           'serverPort':3000,
            'serverIp':"localhost'
            }
          */
-        String op = jsonObjectRequest.getString("op");
+        String op = jsonObjectRequest.getString("op"); // get op value
         if(op.equalsIgnoreCase("register")){ //register server
             ServerModel serverModel = new ServerModel();
             serverModel.setPort(jsonObjectRequest.getInt("serverPort"));
